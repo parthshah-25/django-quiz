@@ -1,0 +1,23 @@
+{% extends "users/base.html" %}
+
+{% block title %}Previous Quizzes{% endblock  %}
+
+{% block content %}
+
+<h2>Quiz History</h2>
+<div class="container my-5">
+{% if previous_quizzes %}
+    
+{% for quiz in previous_quizzes %}
+<ul>
+    <li><a href="{% url 'previous-quiz-detail' quiz.id %}">Quiz Id: {{ quiz.id }} - {{ quiz.technology }} - {{ quiz.user.first_name }} {{ quiz.user.last_name }} </a></li>
+</ul>
+{% endfor %}
+{% else %}
+<h2>
+    No Quizzes Found!!
+</h2>
+
+{% endif %}
+</div>
+{% endblock  %}

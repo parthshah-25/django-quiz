@@ -1,0 +1,43 @@
+{% extends "users/base.html" %}
+
+{% block title %}All Questions{% endblock  %}
+
+{% block content %}
+<a href="{% url 'add-question' %}" class="btn btn-secondary my-3">Add a Question</a>
+
+{% if not questions %}
+<p>No Questions Found!!! Add some...</p>
+
+{% endif %}
+
+{% for question in questions %}
+<h5> Question {{ forloop.counter }}:</h5>
+
+<p><b>Question: </b> {{ question.question }}</p>
+<span class="badge bg-warning text-dark mb-3">{{ question.technology }}</span>
+
+<div class="input-group mb-3">
+    <span class="input-group-text" id="inputGroup-sizing-default">Answer</span>
+    <input type="text" class="form-control bg-success" value="{{ question.answer }}" disabled>
+</div>
+
+<div class="input-group mb-3">
+    <span class="input-group-text" id="inputGroup-sizing-default">Option 1</span>
+    <input type="text" class="form-control" value="{{ question.opt1 }}" disabled>
+</div>
+
+<div class="input-group mb-3">
+    <span class="input-group-text" id="inputGroup-sizing-default">Option 2</span>
+    <input type="text" class="form-control" value="{{ question.opt2 }}" disabled>
+</div>
+
+<div class="input-group mb-3">
+    <span class="input-group-text" id="inputGroup-sizing-default">Option 3</span>
+    <input type="text" class="form-control" value="{{ question.opt3 }}" disabled>
+</div>
+
+<hr>
+
+{% endfor %}
+
+{% endblock  %}

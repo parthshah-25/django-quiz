@@ -1,0 +1,31 @@
+{% extends "users/base.html" %}
+
+{% block title %} Home {% endblock  %}
+
+{% block content %}
+
+{% if user.is_authenticated %}
+    Logged in as, <b>{{ user.email }}</b>
+{% else %}
+<p>You are not logged in, Login First</p>
+{% endif %}
+<div class="container my-5">
+    
+<h3>All Technologies</h3>
+
+
+{% if not technologies %}
+
+<p>No Technologies Found!! Add some..</p>
+{% endif %}
+
+{% for tech in technologies %}
+<ul>
+    <li>
+        <a href="{% url 'start-quiz' tech.id %}">{{ tech }}</a>
+    </li>
+</ul>
+{% endfor %}
+
+</div>
+{% endblock  %}

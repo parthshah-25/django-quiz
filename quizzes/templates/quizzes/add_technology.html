@@ -1,0 +1,19 @@
+{% extends "users/base.html" %}
+
+{% block title %} Add a Technology{% endblock  %}
+
+{% block content %}
+<form action="{% url 'add-technology' %}" method="POST">
+    {% csrf_token %}
+    {% for field in form  %}
+    <div class="form-control {% if field.errors %} errors {% endif %}">
+        
+        {{ field.label_tag }}
+        {{ field }}
+        {{ field.error }}
+        
+    </div>
+    {% endfor %}
+    <button type="submit">Submit</button>
+</form>
+{% endblock  %}

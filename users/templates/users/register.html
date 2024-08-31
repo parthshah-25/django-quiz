@@ -1,0 +1,16 @@
+{% extends "users/base.html" %}
+
+{% block title %} Register {% endblock  %}
+
+{% block content %}
+<h2>Sign Up</h2>
+<form method="post">
+  {% csrf_token %}
+  {{ form.email.label_tag }} {{ form.email }}
+  {{ form.phone_number.label_tag }} {{ form.phone_number }}
+  {{ form.profile_image.label_tag }} {{ form.profile_image }}
+  {{ form.password1.label_tag }} {{ form.password1 }}
+  {{ form.password2.label_tag }} {{ form.password2 }}
+  <button type="submit">Sign Up</button>
+</form>
+{% endblock  %}

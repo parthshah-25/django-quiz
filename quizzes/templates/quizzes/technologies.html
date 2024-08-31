@@ -1,0 +1,22 @@
+{% extends "users/base.html" %}
+
+{% block title %}All Technologies{% endblock  %}
+
+{% block content %}
+<a href="{% url 'add-technology' %}" class="btn btn-secondary my-3">Add a technology</a>
+<h3>Technologies List</h3>
+
+{% if not technologies %}
+
+<p>No Technologies Found!! Add some..</p>
+{% endif %}
+
+{% for tech in technologies %}
+<ul>
+    <li>
+        {{ tech }}
+    </li>
+</ul>
+{% endfor %}
+
+{% endblock  %}

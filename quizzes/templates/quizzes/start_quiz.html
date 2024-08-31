@@ -1,0 +1,39 @@
+{% extends "users/base.html" %}
+
+{% block title %}Attempt Quiz{% endblock  %}
+
+{% block content %}
+
+Quiz on <b>{{ technology }}</b> 
+
+{{ questions|length }} Random Questions are: 
+
+<form action="{% url 'start-quiz' technology.id %}" method="POST">
+    {% csrf_token %}
+    
+    {% for question in questions %}
+    
+    
+        <h3>Question {{ forloop.counter}}: </h3>
+        <p>{{ question.question }}</p>
+
+        <input type="radio" name="{{question.id}}" value="{{ question.opt1 }}" required>
+        <label>{{ question.opt1 }}</label>
+
+        <input type="radio" name="{{question.id}}" value="{{ question.opt2 }}" required>
+        <label>{{ question.opt2 }}</label>
+
+        <input type="radio" name="{{question.id}}" value="{{ question.opt3 }}" required>
+        <label>{{ question.opt3 }}</label>
+
+        <input type="radio" name="{{question.id}}" value="{{ question.answer }}" required>
+        <label>{{ question.answer }}</label>
+
+
+    {% endfor %}
+
+    <button type="submit">Submit Quiz</button>
+
+</form>
+
+{% endblock  %}

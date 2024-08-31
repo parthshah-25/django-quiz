@@ -1,0 +1,30 @@
+{% extends "users/base.html" %}
+
+{% block title %} Quiz Ended{% endblock  %}
+
+{% block content %}
+
+<h1>Quiz Submitted!!</h1>
+<br>
+<h2>Your Total Score: {{ total_correct }}</h2>
+<h2>Incorrect Questions: {{ total_incorrect }}</h2>
+
+<h4>Attempted Questions</h4>
+
+{% for ques in attempted_questions %}
+<p><b>Question {{ forloop.counter }}: </b> {{ ques.question }} </p>
+
+{% if ques.answer == ques.user_answer %}
+<span class="badge bg-success">Correct</span>
+{% else %}
+<span class="badge bg-danger">Incorrect</span>
+{% endif %}
+
+<p><b>Your Answer:</b> {{ ques.user_answer }}</p>
+{% if ques.answer != ques.user_answer %}
+<p><b>Correct Answer:</b> {{ ques.answer }}</p>
+{% endif %}
+{% endfor %}
+
+
+{% endblock  %}
