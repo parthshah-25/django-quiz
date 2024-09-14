@@ -15,9 +15,18 @@ class RegisterView(CreateView):
     template_name = 'users/register.html'
     success_url = reverse_lazy("login")
 
+from .forms import LoginForm
 
-class CustomLoginView(LoginView):
-    template_name = 'users/login.html'
+
+def login_view(request):
+    if request.method == 'POST':
+        form = LoginForm(request.POST)
+        if form.is_valid():
+            form.login(request)
+            return HttpResponse('Logged in successfully')
+    else:
+        form = LoginForm()
+    return render(request, 'users/login.html', {'form': form})
 
 
 class ProfileUpdateView(LoginRequiredMixin, UpdateView):

@@ -1,6 +1,9 @@
+{% load static tailwind_tags %}
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
+    {% tailwind_css %}
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>{% block title %}{% endblock %}</title>
@@ -8,53 +11,76 @@
   </head>
   <body>
     <header>
-      <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <div class="container">
-          <a class="navbar-brand mr-4" href="{% url 'home' %}">Quizzy</a>
-          <button
-            class="navbar-toggler"
-            type="button"
-            data-toggle="collapse"
-            data-target="#navbarToggle"
-            aria-controls="navbarToggle"
-            aria-expanded="false"
-            aria-label="Toggle navigation"
-          >
-            <span class="navbar-toggler-icon"></span>
-          </button>
-          <div class="collapse navbar-collapse" id="navbarToggle">
-            <div class="navbar-nav mr-auto">
-              <a class="nav-item nav-link" href="{% url 'home' %}">Home</a>
-            </div>
-            <div class="navbar-nav">
-
+      <nav class="bg-gray-100">
+        <div class="container mx-auto px-4">
+          <div class="flex justify-between items-center py-4">
+            <a href="{% url 'home' %}" class="text-lg font-bold text-gray-700">Quizzy</a>
+            <button
+              class="text-gray-700 lg:hidden focus:outline-none"
+              id="navbarToggleButton"
+              aria-label="Toggle navigation"
+            >
+              <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+              </svg>
+            </button>
+            <div class="hidden lg:flex space-x-4 items-center" id="navbarToggle">
+              <a href="{% url 'home' %}" class="text-gray-700 hover:text-gray-900">Home</a>
+      
               {% if user.is_authenticated %}
-              <a class="nav-item nav-link" href="{% url 'profile' user.id %}">Profile</a>
-
-              {% if user.is_teacher %}  
-                <a class="nav-item nav-link" href="{% url 'technologies' %}">All Technologies</a>
-                <a class="nav-item nav-link" href="{% url 'questions' %}">All Questions</a>
-              {% endif %}
-              <a class="nav-item nav-link" href="{% url 'previous-quizzes' %}">Previous Quizzes</a>
-
-              <form action="{% url 'logout' %}" method="post">
-                {% csrf_token %} 
-                <button type="submit" class="btn btn-outline-primary"><b>Logout</b></button>
-              </form>
-
-
+                <a href="{% url 'profile' user.id %}" class="text-gray-700 hover:text-gray-900">Profile</a>
+      
+                {% if user.is_teacher %}
+                  <a href="{% url 'technologies' %}" class="text-gray-700 hover:text-gray-900">All Technologies</a>
+                  <a href="{% url 'questions' %}" class="text-gray-700 hover:text-gray-900">All Questions</a>
+                {% endif %}
+                <a href="{% url 'previous-quizzes' %}" class="text-gray-700 hover:text-gray-900">Previous Quizzes</a>
+      
+                <form action="{% url 'logout' %}" method="post" class="inline">
+                  {% csrf_token %}
+                  <button type="submit" class="text-gray-700 border border-gray-700 px-3 py-1 rounded hover:bg-gray-700 hover:text-white transition"><b>Logout</b></button>
+                </form>
+      
               {% else %}
-              <a class="nav-item nav-link" href="{% url 'login' %}">Login</a>
-              <a class="nav-item nav-link" href="{% url 'signup' %}">Register</a>
+                <a href="{% url 'login' %}" class="text-gray-700 hover:text-gray-900">Login</a>
+                <a href="{% url 'signup' %}" class="text-gray-700 hover:text-gray-900">Register</a>
               {% endif %}
-
-             
-
             </div>
-            
+          </div>
+          <div class="lg:hidden hidden" id="mobileMenu">
+            <div class="flex flex-col space-y-4 mt-4">
+              <a href="{% url 'home' %}" class="text-gray-700">Home</a>
+      
+              {% if user.is_authenticated %}
+                <a href="{% url 'profile' user.id %}" class="text-gray-700">Profile</a>
+      
+                {% if user.is_teacher %}
+                  <a href="{% url 'technologies' %}" class="text-gray-700">All Technologies</a>
+                  <a href="{% url 'questions' %}" class="text-gray-700">All Questions</a>
+                {% endif %}
+                <a href="{% url 'previous-quizzes' %}" class="text-gray-700">Previous Quizzes</a>
+      
+                <form action="{% url 'logout' %}" method="post">
+                  {% csrf_token %}
+                  <button type="submit" class="my-2 text-gray-700 border border-gray-700 px-3 py-1 rounded hover:bg-gray-700 hover:text-white transition"><b>Logout</b></button>
+                </form>
+      
+              {% else %}
+                <a href="{% url 'login' %}" class="text-gray-700">Login</a>
+                <a href="{% url 'signup' %}" class="text-gray-700">Register</a>
+              {% endif %}
+            </div>
           </div>
         </div>
       </nav>
+      
+      <script>
+        document.getElementById('navbarToggleButton').addEventListener('click', function() {
+          const menu = document.getElementById('mobileMenu');
+          menu.classList.toggle('hidden');
+        });
+      </script>
+      
     </header>
 
     <main role="main" class="container">
